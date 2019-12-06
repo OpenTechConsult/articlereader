@@ -22,3 +22,14 @@ The operations map to theses routes
   
 Before getting into topics such database and web interface, web will create RESTFul resources with Express.
 We then use cURL to make requests to get the results back. We then move on to complicated tasks such us storing data make it feel like real application.
+
+# Implementing the Add article features
+
+In the last commit, the code that we wrote is unable to create an article. The main reason is that implementing a POST request involve body parsing .
+
+A body parser knows how accept a MIME ( Multipurpose Internet Mail Extensions) encoded POST request bodies and turns them into data we can exploit, usually in JSON format.
+
+We need to remind to ourselves that whenever we submitted a form on a website, a body parser has been involved somewhere in the server side.
+
+To add the official supported body parser we run the command
+`npm install --save body-parser`

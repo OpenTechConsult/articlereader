@@ -4,6 +4,7 @@
   "description": "In our journey on learning Node.js, here we are, about to create a RESFul API using Node.js and Express.js a popular Node framework. The project is about a RESFul web service that allows articles to be created and saved in a similar way to Instapaper and Pocket. It'll use a module that was inspired by the original readability service to turn messy web pages into elegant articles that can be read later.",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1"
   },
   "devDependencies": {},

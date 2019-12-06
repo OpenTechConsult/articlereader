@@ -1,9 +1,16 @@
 const express = require('express')
 const app = express()
 const articles = [{ title: 'Example'}];
+const bodyParser = require('body-parser');
 
 // define the default port for the express web app
 app.set('port', process.env.PORT || 3000);
+
+// add support to request body encoded as JSON
+app.use(bodyParser.json());
+
+// add support to forms encoded bodies
+app.use(bodyParser.urlencoded({ extended: true}));
 
 // gets all articles
 app.get('/articles', (req, res, next) => {
@@ -12,7 +19,9 @@ app.get('/articles', (req, res, next) => {
 
 // creates an article
 app.post('/articles', (req, res, next) => {
-    res.send('OK');
+    const article = { title: req.body.title };
+    articles.push(article);
+    res.send(article);
 });
 
 // gets a single article
