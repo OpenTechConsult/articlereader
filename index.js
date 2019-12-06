@@ -38,6 +38,7 @@ app.get('/articles/:id', (req, res, next) => {
     res.send(articles[id]);
 })
 
+
 // deletes an article
 app.delete('/articles/:id', (req, res, nex) => {
     const id = req.params.id;
