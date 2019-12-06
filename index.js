@@ -14,6 +14,13 @@ app.use(bodyParser.urlencoded({ extended: true}));
 
 // gets all articles
 app.get('/articles', (req, res, next) => {
+   
+    // this is an example of express http route handler making a call
+    // to the database model. 
+    Article.all((err, articles) => {
+        if (err) return next(err);
+        res.send(articles);
+    });
     res.send(articles);
 });
 
