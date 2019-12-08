@@ -72,3 +72,12 @@ We are now going to create our Article Model API. Articles should be created, re
 We can implement all these methods with the sqlite3 module. This module allows us to fetch multiple rows with `db.all()` and a single row with `db.get()`
 
 But first we need a database connection.
+
+### Adding the Article model to the HTTP routes
+
+Now that the basics database functionality is ready, we need to add it to the HTTP routes. The modifications in the index.js page shows how to add each method except for the  POST. We will deal with that separately because it needs to use the readability module. What we need perform are:
+
+- load the db.js module
+- use the module to fetch all articles,
+- use the module to find a specific article,
+- use the module to delete an article.
