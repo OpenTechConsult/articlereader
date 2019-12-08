@@ -57,5 +57,18 @@ if(err) return next(err);
 res.send(articles);
 }));
 ```
+
 > Here the HTTP route GET is getting all articles, so the Model should call something like Article.all. This will vary depending on the database API. Typical examples are `Article.find({}, cb)` and `Article.fetchAll().then(cb).
 
+## Making our own Model API
+
+We are now going to create our Article Model API. Articles should be created, retrieved, and deleted. Therefore we need the following methods for an Article model class.
+
+- Article.all(cb)  : Return all articles
+- Article.find(id, cb) : Given an ID, find the corresponding article
+- Article.create({ title, content }, cb) : Create an article with a title and content
+- Article.delete(id, cb) : Delete an article by ID.
+
+We can implement all these methods with the sqlite3 module. This module allows us to fetch multiple rows with `db.all()` and a single row with `db.get()`
+
+But first we need a database connection.

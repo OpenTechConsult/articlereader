@@ -36,7 +36,7 @@ app.get('/articles/:id', (req, res, next) => {
     const id = req.params.id;
     console.log('Fetching:', id);
     res.send(articles[id]);
-})
+});
 
 
 // deletes an article
