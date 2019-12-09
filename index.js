@@ -2,8 +2,10 @@ const express = require('express')
 const app = express()
 const articles = [{ title: 'Example'}];
 const bodyParser = require('body-parser');
+const read = require('node-readability');
 // load the database module
 const Article = require('./db').Article;
+
 
 // define the default port for the express web app
 app.set('port', process.env.PORT || 3000);
@@ -28,9 +30,22 @@ app.get('/articles', (req, res, next) => {
 
 // creates an article
 app.post('/articles', (req, res, next) => {
-    const article = { title: req.body.title };
-    articles.push(article);
-    res.send(article);
+
+    // gets the URL from the post body
+    const url = req.body.url;
+    // console.log(url);
+
+    // use the readability module to fetch the url
+    read(url, (err, result) => {
+        if (err || !result) res.status(500).send('Error downloading article');
+        Article.create(
+            { title: result.title, content: result.content}, 
+            (err, article) => {
+                if (err) return next(err);
+                res.send('OK');
+            }
+        );
+    });
 });
 
 // gets a single article

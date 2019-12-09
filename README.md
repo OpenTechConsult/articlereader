@@ -81,3 +81,34 @@ Now that the basics database functionality is ready, we need to add it to the HT
 - use the module to fetch all articles,
 - use the module to find a specific article,
 - use the module to delete an article.
+
+## Making articles readable and saving them for later
+
+Final thing to do is to add support for creating an Article. For that we need to download the all the article and process them through the readability algorithm. We are going to code that convert web page into simplified **reader view** versions. We will implement this using a module **node-readability** from npm.
+
+The node-readability provides an asynchronous function that downloads a URL and turns HTML into a simplified representation.
+
+The following snippet shows how node-readability is used.
+
+```js
+const read = require('node-readability');
+const url = 'http://www.manning.com/cantelon2/';
+read(url, (err, result) => {
+    // result has .title and .content
+});
+```
+
+The node-readability module can be used with our database class to save articles with the `Article.create` method.
+
+```js
+const read = require('node-readability');
+const url = 'http://www.manning.com/cantelon2/';
+read(url, (err, result) => {
+    Article.create(
+        { title: result.title, content: result.content},
+        (err, article) => {
+            // Article saved to the database.
+        }
+    )
+});
+```
