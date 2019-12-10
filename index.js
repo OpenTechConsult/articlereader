@@ -24,7 +24,15 @@ app.get('/articles', (req, res, next) => {
     // Fetches all articles
     Article.all((err, articles) => {
         if (err) return next(err);
-        res.send(articles);
+
+        res.format({
+            html: () => {
+                res.render('article.ejs', { articles: articles });
+            }, 
+            json: () => {
+                res.send(articles);
+            }
+        });
     });
 });
 
@@ -42,7 +50,14 @@ app.post('/articles', (req, res, next) => {
             { title: result.title, content: result.content}, 
             (err, article) => {
                 if (err) return next(err);
-                res.send('OK');
+                res.format({
+                    html: () => {
+                        res.render('article.ejs', { message: 'ok' });
+                    }, 
+                    json: () => {
+                        res.send('OK');
+                    }
+                });
             }
         );
     });
@@ -54,7 +69,14 @@ app.get('/articles/:id', (req, res, next) => {
     // Find a specific article
     Article.find(id, (err, article) => {
         if (err) return next(err);
-        res.send(article);
+        res.format({
+            html: () => {
+                res.render('article.ejs', { article: article });
+            }, 
+            json: () => {
+                res.send(articles);
+            }
+        });
     });
 });
 
@@ -64,7 +86,14 @@ app.delete('/articles/:id', (req, res, next) => {
     const id = req.params.id;
     Article.delete(id, (err) => {
         if (err) return next(err);
-        res.send({ message: 'Delete' });
+        res.format({
+            html: () => {
+                res.render('article.ejs', { message: 'Deleted' });
+            }, 
+            json: () => {
+                res.send({ message: 'Delete' });
+            }
+        });
     });
 });
 app.listen(app.get('port'), 

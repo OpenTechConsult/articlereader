@@ -112,3 +112,53 @@ read(url, (err, result) => {
     )
 });
 ```
+
+## ADDING A USER INTERFACE
+
+There are several things to consider when we want to add a web interface to an express project. They are as follow :
+
+1. modify the router handlers methods respond with both JSON and HTML format
+2. choose and use a template engine (install and render template)
+3. serve static files (such as CSS)
+
+### 3.4.1 Supporting multiple formats
+
+Up until now, we've use `res.send()` to send JSON back to the client. We used [**cURL**](https://curl.haxx.se/) to make request, and JSON was a perfect fit for that. But the application needs to support HTML as well. So we need a way to render HTML also. How do we support both ?
+
+The basic technique is to use `res.format()` method provided by Express. It allows the application to respond with the right format based the request. To use it, we provide a list of formats with function that respond the desired way.
+
+```js
+res.format({
+    html: () => {
+        res.render('articles.ejs', { articles: articles });
+    },
+    json: () => {
+        res.send(articles);
+    }
+});
+```
+
+In the snippet above, `res.render` will render the **articles.ejs** in the __view__ folder. But first we need to install the template engine.
+
+### 3.4.2 Rendering templates
+
+Among the array of template engines available, we choose **EJS** (Embedded JavaScrit). To install EJS module from npm, type the following :
+
+`npm install ejs --save`
+
+Now res.render can render HTML files formated with EJS. If we replace for instance the res.send(articles) in the app.get('/articles') route handler with the new res.format(...) code, and then we open http://localhost:3000/articles from the browser, it should attempt to render articles.ejs.
+
+We need to create the __articles.ejs__ template in the __**view**__. Below is a full template that we can use
+
+```html
+<% include head %>
+<ul>
+    <% articles.forEach((article) => { %>
+        <li>
+            <a href="/articles/<%= article.id %>">
+                <%= article.title %>
+            </a>
+        </li>
+    <% })%>
+</ul>
+```
