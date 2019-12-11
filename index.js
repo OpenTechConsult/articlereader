@@ -27,13 +27,16 @@ app.get('/articles', (req, res, next) => {
 
         res.format({
             html: () => {
-                res.render('article.ejs', { articles: articles });
+                res.render('articles.ejs', { articles: articles });
             }, 
             json: () => {
                 res.send(articles);
             }
         });
+        
     });
+
+    
 });
 
 // creates an article

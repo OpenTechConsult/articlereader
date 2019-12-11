@@ -13,7 +13,7 @@ class Article {
 
     // fetches all articles
     static all(cb) {
-        db.all('SELECT * FROM articles');
+        db.all('SELECT * FROM articles', cb);
     }
 
     // selects a specific article
