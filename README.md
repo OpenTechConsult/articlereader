@@ -162,3 +162,29 @@ We need to create the __articles.ejs__ template in the __**view**__. Below is a 
     <% })%>
 </ul>
 ```
+
+### 3.4.3 Using npm for client-side dependencies
+
+After setting up the template, we need to add some style. It's better to use css style framework. We choose bootstrap. Bootstrap is also available on npm registry at [www.npmjs.com/package/bootstrap](http://www.npmjs.com/package/bootstrap)
+
+To install npm via bootstrap:
+
+> npm install bootstrap --save
+
+#### Serving static files
+
+To serve static file (CSS, JS) we Express built-in middleware **__express.static__**. 
+To use it we point it at a directory that contains static files, and those will be available to the browser.
+
+Near the top of the main file (index.js) where we loaded some middleware required by the project :
+
+```js
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+```
+
+we load the bootstrap's CSS, and use the `express.static` to register the file at the right URL.
+
+> app.use('/css/bootstrap.css', express.static('node_modules/boostrap/dist/css/bootstrap.css')
+
+Now we can use cool bootstrap styles.

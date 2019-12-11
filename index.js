@@ -1,10 +1,9 @@
 const express = require('express')
-const app = express()
-const articles = [{ title: 'Example'}];
 const bodyParser = require('body-parser');
-const read = require('node-readability');
+const app = express()
 // load the database module
 const Article = require('./db').Article;
+const read = require('node-readability');
 
 
 // define the default port for the express web app
@@ -15,6 +14,10 @@ app.use(bodyParser.json());
 
 // add support to forms encoded bodies
 app.use(bodyParser.urlencoded({ extended: true}));
+
+// add support for serving static files
+app.use('/css/bootstrap.css', 
+        express.static('node_modules/bootstrap/dist/css/bootstrap.css'));
 
 // gets all articles
 app.get('/articles', (req, res, next) => {
